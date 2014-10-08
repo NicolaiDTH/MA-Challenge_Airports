@@ -12,22 +12,23 @@ describe Airport do
 
 		context "taking off and landing" do
 			it "allows a plane to land" do
-				expect(airport.plane_count).to eq 0
+				expect(airport.landed_plane_count).to eq 0
 				airport.dock(plane)
-				expect(airport.plane_count).to eq 1
+				expect(airport.landed_plane_count).to eq 1
 		end		
-# 			it "a plane can take off" do
-# 				airport.liftoff(plane)
-# 				expect(airport.plane_count).to eq 0
-# 		end
+			it "allows a plane to lift off" do
+				expect(airport.flying_plane_count).to eq 0
+				airport.liftoff(plane)
+				expect(airport.flying_plane_count).to eq 1
+		end
 # 	end
 
-# 		context "air traffic control" do
-# 			it "a plan cannot land if the airport is full" do
-# 				expect(airport).not_to be_full
-# 				100.times {airport.dock(Plane.new)}
-# 				expect(airport).to be_full
-# 		end
+		context "air traffic control" do
+			it "stops planes from landing if the airport is full" do
+				expect(airport).not_to be_full
+				100.times {airport.dock(Plane.new)}
+				expect(airport).to be_full
+		end
 
 # 		# context "weather conditions" do
 # 		# 	it "a plane cannot take off when it is stormy" do
@@ -36,6 +37,6 @@ describe Airport do
 
 # 		# 	it "a plane cannot land when it is stormy" do
 # 		# 	end
-		# end
+		end
 	end
 end

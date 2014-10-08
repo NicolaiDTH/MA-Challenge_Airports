@@ -6,13 +6,21 @@ class Airport
 	def initialize(options = {})
 		self.capacity = options.fetch(:capacity, capacity)
 	end
-	
-	def planes
+
+	def flying_planes
 		@planes ||= []
 	end
 
-	def plane_count
-		planes.count
+	def landed_planes
+		@planes ||= []
+	end
+
+	def flying_plane_count
+		flying_planes.count
+	end
+
+	def landed_plane_count
+		landed_planes.count
 	end
 
 	def capacity
@@ -23,29 +31,21 @@ class Airport
 		@capacity = value
 	end
 
-	def dock(plane=nil?)
+	def dock(plane=nil?)		
 		raise "The airport is full." if full?
-		planes << plane
+		landed_planes << plane
 	end
 
-# 	def liftoff(plane=nil?)
-# 		raise "The airport is empty." if empty?
-# 	end
+	def liftoff(plane=nil?)		
+		flying_planes << plane		
+		raise "The airport is now empty." if empty?
+	end
 
 	def full?
-		plane_count == capacity
+		landed_plane_count == capacity
 	end
 
-# 	def empty?
-# 		plane_count == 0
-# 	end
-
-# 	def flying_planes
-# 		planes.reject {|plane| plane.landed?}
-# 	end
-
-# 	def landed_planes
-# 		planes.select {|plane| plane.landed?}
-# 	end
-# end
+	def empty?
+		landed_plane_count == 0
+	end
 end
