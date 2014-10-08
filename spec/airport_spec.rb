@@ -1,5 +1,7 @@
 require 'airport'
 require 'flying_errors'
+require 'weather'
+require 'plane'
 
 describe Airport do
 
@@ -18,13 +20,15 @@ describe Airport do
 		context "taking off and landing" do
 
 			before(:each) do
-				allow(airport).to recieve(:stormy?){false}
+				allow(airport).to receive(:stormy?) {false}
 			end
 
 			it "allows a plane to land" do
 				plane = double :plane, landed!: self, flying?: true
 				airport.dock(plane)
-				expect(airport_planes).to include (plane)
-		end		
+				expect(airport.airport_planes).to include (plane)
+		end
+
 	end
+
 end

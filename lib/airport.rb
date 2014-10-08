@@ -31,9 +31,7 @@ class Airport
 	def dock(plane)		
 		raise FullAirportError if full?
 		raise StormyWeatherError if stormy?
-		if plane.flying = false
-			return nil
-		else
+		if plane.flying?
 			airport_planes << plane
 			plane.landed!
 		end
@@ -47,7 +45,7 @@ class Airport
 	end
 
 	def full?
-		landed_plane_count == capacity
+		airport_planes.count == capacity
 	end
 
 end
