@@ -1,25 +1,20 @@
 class Plane
 
 	def initialize
-		flying!
+		takeoff!
 	end
 
-	def landed?
-		@landed
-	end
-
-	def land!
-		@landed = true
-		self
+	def flying?
+		@flying
 	end
 
 	def takeoff!
-		@landed = false
+		@flying = true
 		self
 	end
 
-	def flying!
-		@landed = false
+	def landed!
+		@flying = false
 		self
 	end
 end

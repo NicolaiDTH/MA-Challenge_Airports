@@ -1,26 +1,23 @@
-class Airport
-	DEFAULT_CAPACITY = 100
+require_relative 'weather'
+require_relative 'flying_errors'
 
-# 	# include Weather
+class Airport
+	DEFAULT_CAPACITY = 15
+
+	include Weather
+
+	attr_accessor(:capacity)
 
 	def initialize(options = {})
 		self.capacity = options.fetch(:capacity, capacity)
 	end
 
-	def flying_planes
-		@planes ||= []
+	def airport_planes
+		@airport_planes ||= []
 	end
 
-	def landed_planes
-		@planes ||= []
-	end
-
-	def flying_plane_count
-		flying_planes.count
-	end
-
-	def landed_plane_count
-		landed_planes.count
+	def planes_count
+		airport_planes.planes_count
 	end
 
 	def capacity
@@ -31,21 +28,26 @@ class Airport
 		@capacity = value
 	end
 
-	def dock(plane=nil?)		
-		raise "The airport is full." if full?
-		landed_planes << plane
+	def dock(plane)		
+		raise FullAirportError if full?
+		raise StormyWeatherError if stormy?
+		if plane.flying = false
+			return nil
+		else
+			airport_planes << plane
+			plane.landed!
+		end
+		
 	end
 
-	def liftoff(plane=nil?)		
-		flying_planes << plane		
-		raise "The airport is now empty." if empty?
+	def liftoff(plane)		
+		raise StormyWeatherError if stormy?
+		airport_planes.delete(plane)
+		plane.takeoff!
 	end
 
 	def full?
 		landed_plane_count == capacity
 	end
 
-	def empty?
-		landed_plane_count == 0
-	end
 end
