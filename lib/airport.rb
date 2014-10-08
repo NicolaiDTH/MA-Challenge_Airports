@@ -1,5 +1,6 @@
 require_relative 'weather'
 require_relative 'flying_errors'
+require_relative 'plane'
 
 class Airport
 	DEFAULT_CAPACITY = 15
@@ -17,7 +18,7 @@ class Airport
 	end
 
 	def planes_count
-		airport_planes.planes_count
+		airport_planes.count
 	end
 
 	def capacity
